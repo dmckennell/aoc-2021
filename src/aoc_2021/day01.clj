@@ -1,16 +1,15 @@
 (ns aoc-2021.day01
-  (:require [aoc-2021.core :as c]))
+  (:require [clojure.java.io :as io]))
 
 (defn parse-input [file]
   (map #(Long/parseLong %)
-       (line-seq (c/input-reader file))))
+       (line-seq (io/reader (io/resource file)))))
 
 (defn compare-and-increment [count window]
   (let [[val1 val2 & _] window]
     (if (> val2 val1)
       (inc count)
       count)))
-
 
 (defn solve-part1 [filename]
   (->> (str filename ".txt")
@@ -34,3 +33,22 @@
 (solve-part2 "day01_demo")
 ;;part 2
 (solve-part2 "day01")
+
+;; online solutions beyond this point for future reference
+
+(defn solve-part1-alt1 [l]
+  (->> l
+       (#(map < % (rest %)))
+       (filter identity)
+       count))
+
+(solve-part1-alt1 (parse-input (str "day01" ".txt")))
+
+(defn solve-part2-alt1 [l]
+  (->> l
+       (#(map + % (rest %) (rest (rest %))))
+       (#(map < % (rest %)))
+       (filter identity)
+       count))
+
+(solve-part2-alt1 (parse-input (str "day01" ".txt")))
