@@ -25,14 +25,25 @@
        (partition 2 1)
        (reduce compare-and-increment 0)))
 
+;; some alt version to demo the mathematical idea here
+(time (->> "day01.txt"
+           parse-input
+           (partition 3 1)
+           (partition 2 1)
+           (reduce (fn [acc window]
+                     (let [[[x1 _ _] [_ _ y3]] window]
+                       (if (> y3 x1)
+                         (inc acc)
+                         acc))) 0)))
+
 ;;demo 1
 (solve-part1 "day01_demo")
 ;;real 1
-(solve-part1 "day01")
+(time (solve-part1 "day01"))
 ;;demo 1
 (solve-part2 "day01_demo")
 ;;part 2
-(solve-part2 "day01")
+(time (solve-part2 "day01"))
 
 ;; online solutions beyond this point for future reference
 
@@ -42,7 +53,7 @@
        (filter identity)
        count))
 
-(solve-part1-alt1 (parse-input (str "day01" ".txt")))
+(time (solve-part1-alt1 (parse-input (str "day01" ".txt"))))
 
 (defn solve-part2-alt1 [l]
   (->> l
@@ -51,4 +62,4 @@
        (filter identity)
        count))
 
-(solve-part2-alt1 (parse-input (str "day01" ".txt")))
+(time (solve-part2-alt1 (parse-input (str "day01" ".txt"))))
