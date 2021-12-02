@@ -63,3 +63,13 @@
        count))
 
 (time (solve-part2-alt1 (parse-input (str "day01" ".txt"))))
+
+(defn solve-part1-alt2 [input]
+  (count (filter pos? (map - (rest input) input))))
+
+(defn solve-part2-alt2 [input]
+  (count (filter pos? (map - (drop 3 input) input))))
+
+;; example
+(map - [4 5 6] [3 4 6 7])
+;; => (1 1 0)
