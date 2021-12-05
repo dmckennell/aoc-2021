@@ -28,13 +28,13 @@
 (defn diagonal-line-points [[x1 y1 x2 y2]]
   (map vector (inclusive-range x1 x2) (inclusive-range y1 y2)))
 
-(defn line-points [line]
+(defn points [line]
   (if (straight-line? line)
     (straight-line-points line)
     (diagonal-line-points line)))
 
 (defn solve [lines]
-  (->> (mapcat line-points lines)
+  (->> (mapcat points lines)
        frequencies
        (filter #(< 1 (val %)))
        count))
