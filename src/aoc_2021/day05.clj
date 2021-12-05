@@ -36,8 +36,7 @@
 (defn solve [lines]
   (->> (mapcat line-points lines)
        frequencies
-       vals
-       (remove #(== % 1))
+       (filter #(< 1 (val %)))
        count))
 
 (defn part1 [file]
