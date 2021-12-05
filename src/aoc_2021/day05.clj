@@ -5,7 +5,7 @@
 (defn parse-line [line]
   (->> line
        (re-seq #"\d+")
-       (mapv #(Long/parseLong %))))
+       (map #(Long/parseLong %))))
 
 (defn parse-file [file]
   (->> (c/read-text-file file)
@@ -17,8 +17,8 @@
 
 (defn inclusive-range [start end]
   (if (<= start end)
-    (range start (inc end))
-    (range start (dec end) -1)))
+    (range start (inc end)) ;; pos
+    (range start (dec end) -1))) ;; neg
 
 (defn straight-line-points [[x1 y1 x2 y2]]
   (for [x (inclusive-range x1 x2)
@@ -58,6 +58,3 @@
 
 (part2 "day05")
 ;; => 17882
-
-
-
