@@ -15,18 +15,18 @@
 (defn straight-line? [[x1 y1 x2 y2]]
   (or (== x1 x2) (== y1 y2)))
 
-(defn range-points [start end]
+(defn inclusive-range [start end]
   (if (<= start end)
     (range start (inc end))
     (range start (dec end) -1)))
 
 (defn straight-line-points [[x1 y1 x2 y2]]
-  (for [x (range-points x1 x2)
-        y (range-points y1 y2)]
+  (for [x (inclusive-range x1 x2)
+        y (inclusive-range y1 y2)]
     [x y]))
 
 (defn diagonal-line-points [[x1 y1 x2 y2]]
-  (map vector (range-points x1 x2) (range-points y1 y2)))
+  (map vector (inclusive-range x1 x2) (inclusive-range y1 y2)))
 
 (defn line-points [line]
   (if (straight-line? line)
