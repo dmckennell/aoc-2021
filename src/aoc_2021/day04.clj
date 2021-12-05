@@ -2,17 +2,15 @@
   (:require [aoc-2021.core :as c]
             [clojure.string :as str]))
 
-(str/split-lines (c/read-text-file "day04_demo"))
-
 (defn parse [file]
   (let [[draws & boards] (str/split (c/read-text-file file) #"\n\n")]
     {:draws (->> draws
                  (re-seq #"\d+")
                  (map #(Long/parseLong %)))
      :boards (->> boards
-                  (mapcat #(re-seq #"\d+" %))
+                  (mapcat #(re-seq #"\d+" %)) ;; map and concatenate
                   (map (fn [value] {:marked? false :number (Long/parseLong value)}))
-                  (partition 25))}))
+                  (partition 25))})) ;; squares in individual board
 
 (defn bingo? [board]
   (let [rows (partition 5 board)
